@@ -1,83 +1,25 @@
 {
-  "name": "merlin-gql",
-  "version": "1.0.10",
+  "name": "@merlin-gql/core",
+  "version": "0.0.1",
   "author": "silentium-labs",
-  "bin": {
-    "merlin-gql": "./bin/run"
-  },
   "dependencies": {
-    "@oclif/command": "^1.8.0",
-    "@oclif/config": "^1.17.0",
-    "@oclif/plugin-help": "^3.2.1",
-    "apollo-server": "^2.19.2",
-    "chalk": "^4.1.0",
-    "change-case": "^4.1.2",
-    "chokidar": "^3.5.1",
-    "cli-ux": "^5.5.1",
-    "execa": "^5.0.0",
-    "fs-extra": "^9.1.0",
-    "global-npm": "^0.4.1",
-    "inquirer": "^7.3.3",
-    "listr": "^0.14.3",
-    "ncp": "^2.0.0",
-    "node-emoji": "^1.10.0",
-    "ora": "^5.3.0",
     "pluralize": "^8.0.0",
-    "prettier": "^2.2.1",
-    "rxjs": "^6.6.3",
     "tslib": "^2.1.0",
-    "uuid": "^8.3.2",
-    "yargs": "16.2.0"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@oclif/dev-cli": "^1.26.0",
-    "@oclif/test": "^1.2.8",
-    "@types/array.prototype.flatmap": "^1.2.2",
-    "@types/chai": "^4.2.14",
-    "@types/chai-as-promised": "^7.1.3",
-    "@types/chai-subset": "^1.3.3",
-    "@types/chalk": "^2.2.0",
-    "@types/eslint": "^7.2.6",
-    "@types/fs-extra": "^9.0.6",
-    "@types/global-npm": "^0.4.0",
-    "@types/inquirer": "^7.3.1",
-    "@types/listr": "^0.14.2",
-    "@types/mocha": "^8.2.0",
-    "@types/mssql": "^6.0.7",
-    "@types/mysql": "^2.15.17",
-    "@types/ncp": "^2.0.4",
     "@types/node": "^14.14.22",
-    "@types/node-emoji": "^1.8.1",
-    "@types/oracledb": "^5.1.0",
-    "@types/pg": "^7.14.9",
     "@types/pluralize": "0.0.29",
-    "@types/prettier": "^2.1.6",
-    "@types/sinon": "^9.0.10",
     "@types/uuid": "^8.3.0",
-    "@types/yargs": "^15.0.12",
     "@typescript-eslint/eslint-plugin": "^4.14.0",
     "@typescript-eslint/parser": "^4.14.0",
     "@typescript-eslint/typescript-estree": "^4.14.0",
-    "array.prototype.flatmap": "^1.2.4",
-    "chai": "^4.2.0",
-    "chai-as-promised": "^7.1.1",
-    "chai-subset": "^1.6.0",
-    "codecov": "^3.8.1",
-    "dotenv": "^8.2.0",
     "eslint": "^7.18.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-oclif": "^3.1.0",
     "eslint-config-oclif-typescript": "^0.2.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-import": "^2.22.1",
-    "globby": "^11.0.2",
-    "husky": "^4.3.8",
-    "lint-staged": "^10.5.3",
-    "mocha": "^8.2.1",
-    "nyc": "^15.1.0",
-    "rimraf": "^3.0.2",
-    "sinon": "^9.2.4",
-    "sinon-chai": "^3.5.0",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3",
     "yn": "^4.0.0"
@@ -87,7 +29,8 @@
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.1.1",
     "typeorm": "^0.2.30",
-    "class-validator": "^0.13.1"
+    "class-validator": "^0.13.1",
+    "apollo-server": "^2.19.2"
   },
   "engines": {
     "node": ">=8.0.0"
@@ -110,16 +53,14 @@
       "@oclif/plugin-help"
     ]
   },
-  "repository": "silentium-labs/merlin-gql-cli",
-  "bugs": "https://github.com/silentium-labs/merlin-gql-cli/issues",
+  "repository": "silentium-labs/merlin-gql-core",
+  "bugs": "https://github.com/silentium-labs/merlin-gql-core/issues",
   "scripts": {
-    "postpack": "rimraf oclif.manifest.json",
-    "prepack": "rimraf lib && tsc -b && oclif-dev readme && ncp \"src/new/templates\" \"lib/new/templates\" && ncp \"src/db-reverse/templates\" \"lib/db-reverse/templates\"",
-    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register '**/*.spec.ts'",
-    "version": "oclif-dev readme && git add README.md",
-    "readme": "oclif-dev readme",
-    "rimraf": "./node_modules/rimraf/bin.js"
+    "prepack": "tsc -b"
   },
   "types": "lib/index.d.ts",
-  "main": "lib/index.js"
+  "main": "lib/index.js",
+  "publishConfig": {
+    "access": "public"
+  }
 }
