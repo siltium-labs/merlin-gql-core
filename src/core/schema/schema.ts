@@ -5,7 +5,7 @@ import path from "path";
 import * as glob from "glob";
 
 export type MerlinGQLConfig = {
-  ots: string[];
+  resolverGenerators: string[];
 };
 
 export const getMerlinGqlConfigResolversPath = (): Promise<string[]> =>
@@ -26,12 +26,12 @@ export const getMerlinGqlConfigResolversPath = (): Promise<string[]> =>
       const merlinGqlConfig = JSON.parse(
         merlinGqlJsonFileContent
       ) as MerlinGQLConfig;
-      if (!merlinGqlConfig.ots || merlinGqlConfig.ots.length === 0) {
+      if (!merlinGqlConfig.resolverGenerators || merlinGqlConfig.resolverGenerators.length === 0) {
         throw new Error(
-          "There must be at least one ot expression in the merlin-gql-config.json file"
+          "There must be at least one resolverGenerators expression in the merlin-gql-config.json file"
         );
       }
-      return resolve([...merlinGqlConfig.ots]);
+      return resolve([...merlinGqlConfig.resolverGenerators]);
     } catch (e) {
       return reject(e);
     }

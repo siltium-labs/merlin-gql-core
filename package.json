@@ -1,6 +1,6 @@
 {
   "name": "@merlin-gql/core",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "silentium-labs",
   "dependencies": {
     "pluralize": "^8.0.0",
