@@ -97,7 +97,7 @@ export const securityRolesAllowedForOperation = (
   const operationMetadata = merlinGqlMetadataStorage.objectTypes[
     targetClassName
   ]?.operations.find((o) => o.type === "ALL" || o.type === operation) as OperationMetadataDefinition;
-  return operationMetadata.roles;
+  return operationMetadata?.roles ?? [];
 };
 
 export type FieldDefinitionMetadata = {
