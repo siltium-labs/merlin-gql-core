@@ -119,6 +119,10 @@ export const getInfoFromSubfield = (
   }
 };
 
+export const mergeQueryData = (...sources: IQueryData[]) => {
+
+}
+
 export const getQueryDataFromFilters = (
   queryData: IQueryData | null,
   filter: IFilterCriteria | null,
@@ -134,6 +138,12 @@ export const getQueryDataFromFilters = (
     dictionary = filter.reduce((acc, value, idx) => {
       return { ...acc, [idx]: value };
     });
+  }
+  if (filter && (filter as IAndFilterCriteria).and) {
+    (filter as IAndFilterCriteria).and.map((c) => getQueryDataFromFilters(data, c, relations))
+  }
+  if (filter && (filter as IOrFilterCriteria).or) {
+    (filter as IOrFilterCriteria).or.map((c) => getQueryDataFromFilters(data, c, relations))
   }
   filter = dictionary ? dictionary : filter;
 

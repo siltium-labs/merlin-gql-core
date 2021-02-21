@@ -121,6 +121,10 @@ export const criteriaToQbWhere = (
           expression = `${propName} like :${propUID}`;
           values = { [propUID]: "%" + criterion.value + "%" };
           break;
+        case FilterTypesEnum.ILIKE:
+          expression = `LOWER(${propName}) like LOWER(:${propUID})`;
+          values = { [propUID]: typeof criterion.value === "string" && criterion.value.includes("%") ? criterion.value : ("%" + criterion.value + "%") };
+          break;
         default:
           throw "Invalid operator";
       }
@@ -279,14 +283,13 @@ export type IFilterCriteria =
   | IOrFilterCriteria;
 
 type FilteredProperty = {
-  [key: string]:
-    | {
-        value: any;
-        type: FilterTypesEnum;
-      }
-    | FilteredProperty;
+  [key: string]: {
+    value: any;
+    type: FilterTypesEnum;
+  }
+  | FilteredProperty;
 };
-export interface IPropertyFilterCriteria extends FilteredProperty {}
+export interface IPropertyFilterCriteria extends FilteredProperty { }
 export interface IAndFilterCriteria {
   and: IFilterCriteria[];
 }
@@ -307,6 +310,7 @@ export enum FilterTypesEnum {
   IN = "in",
   NOT_IN = "not_in",
   LIKE = "like",
+  ILIKE = "ilike"
 }
 
 registerEnumType(FilterTypesEnum, {
@@ -366,4 +370,4 @@ type SortedProperties = {
   [key: string]: SortField;
 };
 
-export interface ISortCriteria extends SortedProperties {}
+export interface ISortCriteria extends SortedProperties { }
