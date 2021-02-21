@@ -12,7 +12,8 @@
     "emitDecoratorMetadata": true,
     "types": ["reflect-metadata"],
     "resolveJsonModule": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "sourceMap": true
   },
   "include": ["src/**/*", "test/fake-database.test.ts"],
   "exclude": ["src/new/templates/**/*"]
