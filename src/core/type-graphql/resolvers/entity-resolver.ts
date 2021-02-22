@@ -18,14 +18,14 @@ import {
 
 export interface IListQueryResult<T> {
   pageInfo: {
-    total: number | Promise<number>;
+    total?: number | Promise<number>;
   };
   result: T[] | Promise<T[]>;
 }
 
 export interface IListQueryResult<T> {
   pageInfo: {
-    total: number | Promise<number>;
+    total?: number | Promise<number>;
   };
   result: T[] | Promise<T[]>;
 }
@@ -90,6 +90,11 @@ export const EntityToGraphResolver: IEntityResolver = {
           (node) => !isPageInfoFieldNode(<FieldNode>node)
         )
       );
+      const pageInfoNode = <FieldNode>(
+        gqlQyeryInfo.fieldNodes[0].selectionSet?.selections.find(
+          (node) => isPageInfoFieldNode(<FieldNode>node)
+        )
+      );
       const fields = getQueryData(fieldsNode, modelType, criteria?.sort);
       const idName = modelType.getIdDatabaseName();
       const modelAlias =
@@ -133,9 +138,10 @@ export const EntityToGraphResolver: IEntityResolver = {
       });
       criteriaToQbWhere(modelAlias, queryBuilder, filterParsed);
       criteriaToQbOrderBy(modelAlias, queryBuilder, sortParsed);
-
-      const total = queryBuilder.getCount();
-
+      let total: Promise<number> | undefined = undefined;
+      if (pageInfoNode) {
+        total = queryBuilder.getCount();
+      }
       if (criteria?.max) {
         queryBuilder.take(criteria.max);
       }
