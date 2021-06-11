@@ -75,7 +75,7 @@ export const criteriaToQbWhere = (
         criterion.type !== FilterTypesEnum.NOT_IN &&
         criterion.type !== FilterTypesEnum.IN
       ) {
-        criterion.value = criterion.value[0];
+        criterion.value = criterion.value?.[0];
       }
 
       switch (operator) {
