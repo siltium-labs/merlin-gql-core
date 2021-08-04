@@ -1,9 +1,18 @@
 import { FieldNode } from "graphql";
 import { registerEnumType } from "type-graphql";
 import { Brackets, SelectQueryBuilder, WhereExpression } from "typeorm";
-import * as uuid from "uuid";
 import { BaseModel } from "../../database/base.model";
 import { SortField } from "./../models/base-sort-fields";
+
+const dec2hex = (dec: number) =>{
+  return dec.toString(16).padStart(2, "0")
+}
+
+const generateId = (len:number)=> {
+  var arr = new Uint8Array((len || 40) / 2)
+  window.crypto.getRandomValues(arr)
+  return Array.from(arr, dec2hex).join('')
+}
 
 export const isPageInfoFieldNode = (node: FieldNode) => {
   return node.name.value === "pageInfo";
@@ -65,7 +74,7 @@ export const criteriaToQbWhere = (
     formattedCriteria.map((criterion) => {
       const propName = dotSplitedPropToQbAlias(criterion.property, prefix);
       const operator = criterion.type;
-      const propUID = uuid.v1();
+      const propUID = generateId(6);
       let expression: string = "";
       let values: { [prop: string]: any } = {};
 
