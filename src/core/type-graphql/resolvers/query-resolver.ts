@@ -4,14 +4,17 @@ import { Brackets, SelectQueryBuilder, WhereExpression } from "typeorm";
 import { BaseModel } from "../../database/base.model";
 import { SortField } from "./../models/base-sort-fields";
 
-const dec2hex = (dec: number) =>{
-  return dec.toString(16).padStart(2, "0")
-}
 
-const generateId = (len:number)=> {
-  var arr = new Uint8Array((len || 40) / 2)
-  crypto.getRandomValues(arr)
-  return Array.from(arr, dec2hex).join('')
+
+const generateId = (len: number) => {
+  var result = '';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for (var i = 0; i < len; i++) {
+    result += characters.charAt(Math.floor(Math.random() *
+      charactersLength));
+  }
+  return result;
 }
 
 export const isPageInfoFieldNode = (node: FieldNode) => {
